@@ -1,0 +1,36 @@
+<div class="col-md-12" *ngIf="isAuthenticated">
+    
+    <h3 class="mt-2">{{title}}</h3>
+
+<form class="col-md-10 ml-0 pl-0" #updateForm='ngForm' (ngSubmit)="onSubmit(updateForm)">
+    <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name" pattern="[a-zA-Z]+" required placeholder="Ingresa tu nombre">  
+        <small *ngIf="!name.valid && name.touched" class="text-danger d-block">Nombre invalido</small>
+      </div>
+
+      <div class="form-group">
+        <label for="surname">Apellido</label>
+        <input type="text" name="surname" class="form-control" #surname="ngModel" [(ngModel)]="user.surname" pattern="[a-zA-Z]+" required placeholder="Ingresa tu apellido">
+        <small *ngIf="!surname.valid && surname.touched" class="invalid-feedback d-block">Apellido invalido</small>
+      </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required placeholder="Ingresa tu email">
+      <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">Email invalido</small>
+    </div>
+
+    <div class="form-group">
+        <label for="description">Descripcion</label>
+        <textarea name="description" class="form-control" #description="ngModel" [(ngModel)]="user.description"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="image">Imagen</label>
+        <input name="image" type="file" class="form-control" #image="ngModel" [(ngModel)]="user.image"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!updateForm.valid">Enviar</button>
+  </form>
+</div>

@@ -1,0 +1,41 @@
+<div class="col-md-12" *ngIf="!isAuthenticated">
+    
+<h3 *ngIf="status !=='success'" class="mt-2">{{title}}</h3>
+
+<div *ngIf="status === 'success'" class="alert alert-success mt-2">
+  Te has registrado correctamente, para volver al inicio toca aqui <a routerLink="/inicio">Inicio</a>
+</div>
+
+<div *ngIf="status === 'error'" class="alert alert-error mt-2">
+  Error al registrarte, intentalo mas tarde
+</div>
+
+<form class="col-md-10 ml-0 pl-0" #RegisterForm='ngForm' (ngSubmit)="onSubmit(RegisterForm)">
+    <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name" pattern="[a-zA-Z]+" required placeholder="Ingresa tu nombre">  
+        <small *ngIf="!name.valid && name.touched" class="text-danger d-block">Nombre invalido</small>
+      </div>
+
+      <div class="form-group">
+        <label for="surname">Apellido</label>
+        <input type="text" name="surname" class="form-control" #surname="ngModel" [(ngModel)]="user.surname" pattern="[a-zA-Z]+" required placeholder="Ingresa tu apellido">
+        <small *ngIf="!surname.valid && surname.touched" class="invalid-feedback d-block">Apellido invalido</small>
+      </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" class="form-control" name="email" #email="ngModel" [(ngModel)]="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required placeholder="Ingresa tu email">
+      <small *ngIf="!email.valid && email.touched" class="invalid-feedback d-block">Email invalido</small>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" name="password" #password="ngModel" [(ngModel)]="user.password" required placeholder="Contraseña">
+      <small *ngIf="!password.valid && password.touched" class="invalid-feedback d-block" class="invalid-feedback d-block">Contraseña invalida</small>
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!RegisterForm.valid">Enviar</button>
+  </form>
+</div>
+
